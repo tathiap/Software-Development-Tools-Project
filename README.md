@@ -20,6 +20,6 @@ To run this project on your local machine, follow these steps:
 
 3. Navigate to the project directory in your terminal.
 
-4.Run the Streamlit app using the following command: streamlit run app.py
+4. Run the Streamlit app using the following command: streamlit run app.py
 
 5.Open your web browser and go to the provided local URL () to explore the US Vehicles Data. 
