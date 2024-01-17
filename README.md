@@ -13,13 +13,12 @@ The project is implemented using Python and leverages several libraries for data
 ### Instructions to Launch Locally
 To run this project on your local machine, follow these steps:
 
-1. Install the required Python libraries using the following command:
-   pip install pandas numpy streamlit plotly
+1. Install the required Python libraries using the following command: pip install pandas numpy streamlit plotly
    
 2. Clone the project repository to your local machine.
 
 3. Navigate to the project directory in your terminal.
+   
+4.  Run the Streamlit app using the following command: streamlit run app.py
 
-4. Run the Streamlit app using the following command: streamlit run app.py
-
-5.Open your web browser and go to the provided local URL () to explore the US Vehicles Data. 
+5. Open your web browser and go to the provided local URL () to explore the US Vehicles Data. 
