@@ -7,6 +7,38 @@ import plotly.express as px
 csv_file_path = os.path.abspath('vehicles_us.csv')
 df = pd.read_csv(csv_file_path)
 
+def fill_median(group):
+    return group.fillna(group.median())
+
+def fill_mean(group):
+    return group.fillna(group.mean())
+
+def preprocess_data(df):
+    # Fill missing values in 'model_year' and 'cylinders' columns
+    df['model_year'] = df.groupby('model')['model_year'].transform(fill_median)
+    df['cylinders'] = df.groupby('model')['cylinders'].transform(fill_median)
+
+    # Fill missing values in 'odometer' column
+    df['odometer'] = df.groupby(['model_year', 'model'])['odometer'].transform(fill_mean)
+
+    # Remove outliers
+    lower_threshold_model_year = df['model_year'].quantile(0.25) - 1.5 * (df['model_year'].quantile(0.75) - df['model_year'].quantile(0.25))
+    upper_threshold_model_year = df['model_year'].quantile(0.75) + 1.5 * (df['model_year'].quantile(0.75) - df['model_year'].quantile(0.25))
+
+    lower_threshold_price = df['price'].quantile(0.25) - 1.5 * (df['price'].quantile(0.75) - df['price'].quantile(0.25))
+    upper_threshold_price = df['price'].quantile(0.75) + 1.5 * (df['price'].quantile(0.75) - df['price'].quantile(0.25))
+
+    df = df[(df['model_year'] >= lower_threshold_model_year) & (df['model_year'] <= upper_threshold_model_year)]
+    df = df[(df['price'] >= lower_threshold_price) & (df['price'] <= upper_threshold_price)]
+
+    return df
+
+csv_file_path = os.path.abspath('vehicles_us.csv')
+df = pd.read_csv(csv_file_path)
+
+# Apply preprocessing
+df = preprocess_data(df)
+
 st.header("US Vehicles")
 st.write('Explore the current listings of US Vehicles below and get the right car for you') # setting the tone for users to explore the dataset of US Vehicle's car listings 
 
